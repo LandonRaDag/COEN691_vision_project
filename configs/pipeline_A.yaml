@@ -1,0 +1,15 @@
+paths:
+  image_dir: data/raw/scene1
+  mask_dir: data/masks/scene1
+  reconstruction_dir: results/pipeline_A/scene1
+
+segmentation:
+  model: sam
+  save_masks: true
+
+reconstruction:
+  use_gpu: false
+  max_image_size: 1600
+
+evaluation:
+  run_metrics: true

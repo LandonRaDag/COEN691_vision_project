@@ -1,0 +1,30 @@
+# datasets
+data/
+
+# results
+results/
+experiments/
+
+# python
+__pycache__/
+*.pyc
+
+# colmap outputs
+*.bin
+*.ply
+
+# environments
+env/
+venv/
+
+# large models
+*.pth
+*.pt
+
+# vscode
+.vscode/
+
+# latex build
+*.aux
+*.log
+*.out
