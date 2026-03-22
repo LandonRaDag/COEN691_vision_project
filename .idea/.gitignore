@@ -1,0 +1,28 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# COLMAP outputs
+data/colmap_workspace/
+*.db
+*.ply
+*.bin
+
+# Dense reconstruction artifacts
+dense/
+sparse/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Large models (SAM later)
+*.pth

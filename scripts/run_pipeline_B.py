@@ -8,50 +8,17 @@ Steps:
 4. Extract object-level point clouds
 5. Evaluate reconstruction quality
 """
-
-import argparse
+import os
 import yaml
+from src.reconstruction.colmap_utils import run_colmap_pipeline
 
-from src.reconstruction.mvs import run_dense_reconstruction
-from src.segmentation.openmask3d_wrapper import segment_pointcloud
-from src.utils.io import ensure_dir
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+config_path = os.path.join(BASE_DIR, "configs", "pipeline_A.yaml")
 
-
-def load_config(config_path: str) -> dict:
-    """Load YAML configuration file."""
-    with open(config_path, "r") as f:
+def load_config(path):
+    with open(path, "r") as f:
         return yaml.safe_load(f)
 
-
-def main():
-
-    config = load_config("configs/pipeline_B.yaml")
-
-    paths = config["paths"]
-
-    image_dir = paths["image_dir"]
-    reconstruction_dir = paths["reconstruction_dir"]
-    segmentation_dir = paths["segmentation_dir"]
-
-    ensure_dir(reconstruction_dir)
-    ensure_dir(segmentation_dir)
-
-    print("Running dense reconstruction...")
-    run_dense_reconstruction(
-        image_dir=image_dir,
-        output_dir=reconstruction_dir,
-        config=config["reconstruction"]
-    )
-
-    print("Running 3D segmentation...")
-    segment_pointcloud(
-        pointcloud_dir=reconstruction_dir,
-        output_dir=segmentation_dir,
-        config=config["segmentation"]
-    )
-
-    print("Pipeline B completed.")
-
-
 if __name__ == "__main__":
-    main()
+    config = load_config(config_path)
+    run_colmap_pipeline(config)
