@@ -7,3 +7,19 @@ colmap:
   sparse_path: data/colmap_workspace/sparse
   dense_path: data/colmap_workspace/dense
   fused_path: data/colmap_workspace/dense/fused.ply
+
+openmask3d:
+  enabled: false
+  scene_dir: data/openmask3d/scene_example
+  scene_ply_name: scene_example.ply
+  intrinsic_resolution: "[968,1296]"
+  img_extension: .jpg
+  depth_extension: .png
+  depth_scale: 1000
+  mask_module_ckpt_path: external/OpenMask3D/resources/scannet200_model.ckpt
+  sam_ckpt_path: external/OpenMask3D/resources/sam_vit_h_4b8939.pth
+  output_directory: results/openmask3d
+  experiment_name: experiment
+  save_visualizations: false
+  save_crops: false
+  optimize_gpu_usage: false

@@ -1,6 +1,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/external/OpenMask3D/resources
+
 # COLMAP outputs
 data/colmap_workspace/
 *.db
