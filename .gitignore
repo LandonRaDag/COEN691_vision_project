@@ -1,17 +1,6 @@
-# datasets
-data/
-
-# results
-results/
-experiments/
-
 # python
 __pycache__/
 *.pyc
-
-# colmap outputs
-*.bin
-*.ply
 
 # environments
 env/
@@ -23,8 +12,3 @@ venv/
 
 # vscode
 .vscode/
-
-# latex build
-*.aux
-*.log
-*.out
