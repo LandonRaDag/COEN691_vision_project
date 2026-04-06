@@ -1,3 +1,5 @@
+import os
+
 import cv2
 import numpy as np
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
@@ -35,23 +37,39 @@ def generate_mask(image_path, output_path, checkpoint_path):
         raise ValueError("No masks generated")
 
     # Pick largest mask (simple heuristic)
+    # Pick largest mask
     largest_mask = max(masks, key=lambda x: x["area"])["segmentation"]
 
-    # Convert to image
-    mask_img = (largest_mask * 255).astype(np.uint8)
+    # Convert mask to 3 channels
+    mask_3ch = np.stack([largest_mask] * 3, axis=-1)
 
-    # Save mask
-    cv2.imwrite(output_path, mask_img)
+    # Apply mask to original image
+    masked_image = image * mask_3ch
 
-    print(f"Mask saved to {output_path}")
-    print(cv2.imwrite(output_path, mask_img))
+    # Save masked image
+    cv2.imwrite(output_path, masked_image)
+
+    print(f"Masked image saved to {output_path}")
 
 
 if __name__ == "__main__":
 
+    object_name = "car1"
+    input_folder = f"D:/Concordia/ECE/Winter 2026/COEN 691 O/Project/COEN691_vision_project/data/CO3D subsets/{object_name}/images"
+    output_folder = f"../../data/masked_images/{object_name}"
 
-    generate_mask(
-        "D:/Concordia/ECE/Winter 2026/COEN 691 O/Project/COEN691_vision_project/data/CO3D subsets/pizza2/images/frame000001.jpg",
-        "../../data/masked_images/test_mask.png",
-        checkpoint_path
-    )
+    os.makedirs(output_folder, exist_ok=True)
+
+    for filename in os.listdir(input_folder):
+        if filename.lower().endswith((".jpg", ".png")):
+
+            input_path = os.path.join(input_folder, filename)
+            output_path = os.path.join(output_folder, filename)
+
+            print(f"Processing {filename}...")
+
+            generate_mask(
+                input_path,
+                output_path,
+                checkpoint_path
+            )
