@@ -1,34 +1,22 @@
 import os
-
 import cv2
 import numpy as np
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 import torch
-import torch
+
 print(torch.cuda.is_available())
 print(torch.version.cuda)
 
-checkpoint_path="../../models/sam_vit_b_01ec64.pth"
+checkpoint_path = "../../models/sam_vit_b_01ec64.pth"
 
-def generate_mask(image_path, output_path, checkpoint_path):
+
+def generate_mask(image_path, output_path, mask_generator):
     # Load image
     image = cv2.imread(image_path)
     if image is None:
         raise ValueError(f"Could not load image: {image_path}")
 
     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-    # Load SAM model
-    sam = sam_model_registry["vit_b"](checkpoint=checkpoint_path)
-
-    if torch.cuda.is_available():
-        sam.to(device="cuda")
-        print("Using CUDA")
-    else:
-        print("Using CPU")
-
-
-    mask_generator = SamAutomaticMaskGenerator(sam)
 
     # Generate masks
     masks = mask_generator.generate(image_rgb)
@@ -37,7 +25,6 @@ def generate_mask(image_path, output_path, checkpoint_path):
         raise ValueError("No masks generated")
 
     # Pick largest mask (simple heuristic)
-    # Pick largest mask
     largest_mask = max(masks, key=lambda x: x["area"])["segmentation"]
 
     # Convert mask to 3 channels
@@ -60,6 +47,19 @@ if __name__ == "__main__":
 
     os.makedirs(output_folder, exist_ok=True)
 
+    # Load SAM model ONCE
+    print("Loading SAM model...")
+    sam = sam_model_registry["vit_b"](checkpoint=checkpoint_path)
+
+    if torch.cuda.is_available():
+        sam.to(device="cuda")
+        print("Using CUDA")
+    else:
+        print("Using CPU")
+
+    mask_generator = SamAutomaticMaskGenerator(sam)
+
+    # Loop through images
     for filename in os.listdir(input_folder):
         if filename.lower().endswith((".jpg", ".png")):
 
@@ -71,5 +71,5 @@ if __name__ == "__main__":
             generate_mask(
                 input_path,
                 output_path,
-                checkpoint_path
+                mask_generator
             )
