@@ -38,12 +38,9 @@ def generate_mask(image_path, output_path, mask_generator):
 
     print(f"Masked image saved to {output_path}")
 
-
-if __name__ == "__main__":
-
-    object_name = "car1"
-    input_folder = f"D:/Concordia/ECE/Winter 2026/COEN 691 O/Project/COEN691_vision_project/data/CO3D subsets/{object_name}/images"
-    output_folder = f"../../data/masked_images/{object_name}"
+def run_sam_folder(config):
+    input_folder = config["data"]["images_path"]
+    output_folder = config["data"]["masked_images_path"]
 
     os.makedirs(output_folder, exist_ok=True)
 
