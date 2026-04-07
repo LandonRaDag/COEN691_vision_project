@@ -23,6 +23,17 @@ def load_config(path):
 if __name__ == "__main__":
     config = load_config(config_path)
 
+    # Fix paths relative to project root
+    ROOT = BASE_DIR
+
+
+    def resolve(p):
+        return os.path.join(ROOT, p)
+
+
+    config["data"]["images_path"] = resolve(config["data"]["images_path"])
+    config["data"]["masked_images_path"] = resolve(config["data"]["masked_images_path"])
+
     # 1. Run SAM masking
     print("Running SAM masking...")
     run_sam_folder(config)

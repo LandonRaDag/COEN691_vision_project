@@ -7,7 +7,8 @@ import torch
 print(torch.cuda.is_available())
 print(torch.version.cuda)
 
-checkpoint_path = "../../models/sam_vit_b_01ec64.pth"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+checkpoint_path = os.path.join(BASE_DIR, "../../models/sam_vit_b_01ec64.pth")
 
 
 def generate_mask(image_path, output_path, mask_generator):
