@@ -1,5 +1,5 @@
 data:
-  images_path: data/CO3D subsets/teddy1/images
+  images_path: data/CO3D subsets/car1/images
   masked_images_path: data/masked_images/masked
 colmap:
   executable: C:/COLMAP-3.7-windows-cuda/bin/colmap.exe
