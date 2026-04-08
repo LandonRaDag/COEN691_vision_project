@@ -1,6 +1,6 @@
 data:
-  images_path: data/colmap_workspace/images
-
+  images_path: data/CO3D subsets/car1/images
+  masked_images_path: data/masked_images/masked
 colmap:
   executable: C:/COLMAP-3.7-windows-cuda/bin/colmap.exe
   database_path: data/colmap_workspace/database.db
