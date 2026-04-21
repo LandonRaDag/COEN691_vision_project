@@ -40,10 +40,14 @@ def parse_all_cameras(camera_file):
 
             if model == "PINHOLE":
                 fx, fy, cx, cy = params
+            elif model == "SIMPLE_RADIAL":
+                f, cx, cy, k = params
+                fx = fy = f
             elif model == "SIMPLE_PINHOLE":
                 f, cx, cy = params
                 fx = fy = f
             else:
+
                 raise ValueError(f"Unsupported camera model: {model}")
 
             K = np.array([

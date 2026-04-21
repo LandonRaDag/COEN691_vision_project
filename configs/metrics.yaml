@@ -5,13 +5,13 @@ dataset:
   annotations_file: data/CO3D subsets/car1/frame_annotations.jgz
 
 prediction:
-  point_cloud_path: results/pipeline A/car1/car1.ply
-  images_txt: results/pipeline A/car1/images.txt
-  cameras_txt: results/pipeline A/car1/cameras.txt
+  point_cloud_path: results/pipeline B/car1/car1.ply
+  images_txt: results/pipeline B/car1/images.txt
+  cameras_txt: results/pipeline B/car1/cameras.txt
 
 evaluation:
-  output_dir: results/pipeline A/car1/metrics_eval
-  debug_frame: frame000059.jpg
+  output_dir: results/pipeline B/car1/metrics_eval
+  debug_frame: frame000001.jpg
 
   voxel_size: 0.01
   point_radius_px: 1
