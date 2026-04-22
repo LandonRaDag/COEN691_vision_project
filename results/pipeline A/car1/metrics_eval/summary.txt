@@ -1,0 +1,7 @@
+num_frames: 51
+mean_mask_iou: 0.7227177542704547
+median_mask_iou: 0.755678698874554
+mean_depth_mae: 2962.5412837009803
+median_depth_mae: 2749.081787109375
+mean_depth_scale: 5120.116134344363
+median_depth_scale: 4792.806640625
